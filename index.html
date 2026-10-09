@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MessiEn ToBien · Me siento lindo</title>
+<meta name="description" content="MessiEn ToBien: el influencer virtual que se siente lindo todos los días. Mate, asado, buena onda y toda la actitud.">
+<meta property="og:title" content="MessiEn ToBien · Me siento lindo">
+<meta property="og:description" content="Argentino de alma y con toda la actitud. Conocé al influencer que se siente lindo.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/hero.jpg">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat+Brush&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#0B1F3A;
+    --azul-2:#13335C;
+    --celeste:#74ACDF;
+    --hielo:#EAF3FB;
+    --sol:#F6B40E;
+    --blanco:#FFFFFF;
+    --display:"Bricolage Grotesque", "Arial Black", Impact, sans-serif;
+    --mano:"Caveat Brush", "Comic Sans MS", cursive;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{overflow-x:hidden;margin:0;font-family:var(--display);font-size:1.125rem;line-height:1.6;color:var(--azul);background:var(--hielo)}
+  img{max-width:100%;height:auto;display:block}
+  main{overflow-x:clip}
+  a{color:inherit}
+  button{font:inherit;cursor:pointer}
+  :focus-visible{outline:3px solid var(--sol);outline-offset:3px}
+  .wrap{width:min(1120px, 100% - 2.5rem);margin-inline:auto}
+
+  /* Barra de avance */
+  .avance{position:fixed;inset:0 0 auto 0;height:5px;z-index:50;background:transparent}
+  .avance i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--celeste),var(--sol))}
+
+  /* Navegación */
+  .nav{position:absolute;inset:0 0 auto 0;z-index:10;padding:1.1rem 0}
+  .nav .wrap{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+  .logo{font-weight:800;text-decoration:none;color:var(--blanco);font-size:1.15rem;letter-spacing:-.01em}
+  .logo b{color:var(--celeste)}
+  .nav ul{display:flex;gap:1.5rem;list-style:none;margin:0;padding:0}
+  .nav a.l{color:#cfe0f2;text-decoration:none;font-weight:500}
+  .nav a.l:hover{color:var(--blanco);text-decoration:underline;text-underline-offset:6px}
+
+  /* Portada */
+  .portada{position:relative;background:var(--azul);color:var(--blanco);padding:7.5rem 0 6rem;overflow:hidden}
+  .portada::before{ /* franjas de la bandera, muy tenues */
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(116,172,223,.16) 0 30%,rgba(255,255,255,.05) 30% 70%,rgba(116,172,223,.16) 70% 100%);
+  }
+  .portada .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+  .sol-fondo{position:absolute;right:-140px;top:-140px;width:520px;height:520px;opacity:.22;will-change:transform}
+  .portada h1{margin:0;font-weight:800;font-size:clamp(3.4rem,9.5vw,8rem);line-height:.92;letter-spacing:-.035em}
+  .portada h1 .linea{display:block;white-space:nowrap}
+  .portada h1 .linea.dos{color:var(--celeste)}
+  .letra{display:inline-block;transition:transform .25s cubic-bezier(.3,1.8,.5,1);animation:salto .8s cubic-bezier(.3,1.6,.5,1) backwards;animation-delay:calc(var(--i)*60ms + 150ms)}
+  .letra:hover{transform:translateY(-10px) rotate(4deg)}
+  @keyframes salto{from{opacity:0;transform:translateY(70px) rotate(-10deg) scale(.55)}to{opacity:1;transform:none}}
+  .lema{font-family:var(--mano);font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.1;color:var(--sol);margin:1.5rem 0 .5rem;transform:rotate(-2deg);display:inline-block}
+  .portada p.intro{font-size:1.2rem;color:#cfe0f2;max-width:36ch;margin:0 0 2rem}
+  .acciones{display:flex;flex-wrap:wrap;gap:1rem}
+  .boton{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:.75rem 1.8rem;border-radius:999px;font-weight:700;font-size:1.05rem;text-decoration:none;border:2px solid var(--sol);background:var(--sol);color:var(--azul);transition:transform .2s cubic-bezier(.3,1.8,.5,1), background .2s}
+  .boton:hover{transform:translateY(-3px) rotate(-1.5deg);background:var(--blanco);border-color:var(--blanco)}
+  .boton.claro{background:transparent;color:var(--blanco);border-color:#6f8db3}
+  .boton.claro:hover{background:var(--blanco);color:var(--azul);border-color:var(--blanco)}
+
+  .escena{position:relative;perspective:900px;max-width:430px;margin-inline:auto;width:100%}
+  .tarjeta{position:relative;border:10px solid var(--blanco);border-radius:6px;background:var(--blanco);box-shadow:0 30px 60px rgba(0,0,0,.45);transform:rotate(2.5deg) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;will-change:transform}
+  .tarjeta img{width:100%;aspect-ratio:592/720;object-fit:cover}
+  .pegatina{position:absolute;z-index:2}
+  .pegatina.sol{width:92px;height:92px;top:-34px;right:-30px;animation:girar 14s linear infinite}
+  .pegatina.diez{left:-26px;bottom:48px;width:84px;height:84px;border-radius:50%;background:var(--celeste);color:var(--azul);display:grid;place-items:center;font-weight:800;font-size:2.2rem;border:4px solid var(--blanco);animation:flotar 4s ease-in-out infinite}
+  .pegatina.globo{right:-14px;bottom:-22px;background:var(--blanco);color:var(--azul);font-family:var(--mano);font-size:1.35rem;padding:.35rem 1rem;border-radius:999px;transform:rotate(-5deg);box-shadow:0 8px 20px rgba(0,0,0,.3);animation:flotar 5s .6s ease-in-out infinite}
+  @keyframes girar{to{transform:rotate(360deg)}}
+  @keyframes flotar{50%{transform:translateY(-10px)}}
+
+  /* Cinta */
+  .cinta{background:var(--sol);color:var(--azul);transform:rotate(-1.6deg);margin:-1.6rem -2rem 0;position:relative;z-index:3;overflow:hidden;border-block:3px solid var(--azul)}
+  .pista{display:flex;width:max-content;animation:cinta 28s linear infinite}
+  .cinta:hover .pista{animation-play-state:paused}
+  .pista span{font-weight:800;font-size:1.6rem;padding:.55rem 0;white-space:nowrap;letter-spacing:-.01em}
+  .pista span::after{content:"☀";padding:0 1.4rem}
+  @keyframes cinta{to{transform:translateX(-50%)}}
+
+  /* Secciones */
+  section.bloque{padding:6rem 0}
+  h2{font-weight:800;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1;letter-spacing:-.03em;margin:0 0 1rem}
+  .sub{max-width:52ch;margin:0 0 2.5rem;color:#2d4a6e}
+
+  /* Quién es */
+  .quien .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem;align-items:center}
+  .foto-quien{position:relative}
+  .foto-quien img{border-radius:6px;box-shadow:12px 12px 0 var(--celeste);aspect-ratio:247/435;object-fit:cover;width:100%;max-width:360px}
+  .quien p{max-width:50ch;margin:0 0 1rem}
+  .quien .firma{font-family:var(--mano);font-size:2rem;color:var(--azul-2);margin-top:1.25rem;display:block}
+
+  /* Lindómetro */
+  .lindo{background:var(--celeste);text-align:center;overflow:hidden;position:relative}
+  .lindo h2{color:var(--azul)}
+  .lindo .sub{margin-inline:auto;color:var(--azul)}
+  .contador{font-weight:800;font-size:clamp(4rem,14vw,9rem);line-height:1;letter-spacing:-.05em;color:var(--blanco);text-shadow:5px 5px 0 var(--azul);margin:.5rem 0 1.5rem;display:inline-block}
+  .contador.pop{animation:pop .35s cubic-bezier(.3,1.8,.5,1)}
+  @keyframes pop{40%{transform:scale(1.18) rotate(-3deg)}}
+  .gran-boton{position:relative;display:inline-block;background:var(--azul);color:var(--blanco);border:0;border-radius:999px;padding:1.1rem 2.6rem;font-weight:800;font-size:1.4rem;box-shadow:0 8px 0 #050f1d;transition:transform .1s, box-shadow .1s}
+  .gran-boton:hover{background:var(--azul-2)}
+  .gran-boton:active{transform:translateY(6px);box-shadow:0 2px 0 #050f1d}
+  .rayo{position:absolute;left:50%;top:50%;width:14px;height:14px;border-radius:50%;background:var(--sol);pointer-events:none;animation:rayo .8s ease-out forwards}
+  .rayo:nth-child(3n){background:var(--blanco)}
+  .rayo:nth-child(5n){background:var(--azul)}
+  @keyframes rayo{to{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}}
+  .nota{font-size:.95rem;margin-top:1.75rem;color:var(--azul)}
+
+  /* Expresiones */
+  .expresiones .escenario{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center}
+  .retrato{position:relative;width:min(300px,70vw)}
+  .retrato img{width:100%;aspect-ratio:105/137;object-fit:cover;border-radius:6px;border:8px solid var(--blanco);box-shadow:10px 10px 0 var(--azul)}
+  .retrato img.cambia{animation:cambia .45s ease-out}
+  @keyframes cambia{from{opacity:.2;transform:scale(.94) rotate(-3deg)}to{opacity:1;transform:none}}
+  .globo-dice{font-family:var(--mano);font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.1;margin:0 0 1.75rem;min-height:2.4em;max-width:18ch}
+  .chips{display:flex;flex-wrap:wrap;gap:.6rem}
+  .chip{display:flex;align-items:center;gap:.6rem;background:var(--blanco);border:2px solid var(--azul);border-radius:999px;padding:.3rem 1.1rem .3rem .3rem;font-weight:600;color:var(--azul);transition:transform .2s cubic-bezier(.3,1.8,.5,1), background .2s}
+  .chip img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:50% 20%}
+  .chip:hover{transform:translateY(-3px) rotate(-2deg)}
+  .chip[aria-pressed="true"]{background:var(--azul);color:var(--blanco)}
+
+  /* 360 */
+  .vista{background:var(--azul);color:var(--blanco)}
+  .vista .sub{color:#cfe0f2}
+  .vista .wrap{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+  .giro{position:relative;height:min(480px,70vw);display:grid;place-items:center}
+  .giro::before{content:"";position:absolute;width:62%;aspect-ratio:1;border-radius:50%;background:var(--azul-2);bottom:8%}
+  .giro img{position:absolute;height:92%;width:auto;object-fit:contain;opacity:0;transform:translateX(30px) scale(.92);transition:opacity .45s, transform .45s;border-radius:4px}
+  .giro img.on{opacity:1;transform:none}
+  .vistas{display:flex;gap:.6rem;flex-wrap:wrap}
+  .vistas button{background:transparent;color:var(--blanco);border:2px solid #6f8db3;border-radius:999px;padding:.6rem 1.5rem;font-weight:700;transition:background .2s,color .2s}
+  .vistas button:hover{border-color:var(--blanco)}
+  .vistas button[aria-pressed="true"]{background:var(--celeste);color:var(--azul);border-color:var(--celeste)}
+
+  /* Su día */
+  .galeria{columns:3;column-gap:1.25rem}
+  .foto{break-inside:avoid;margin:0 0 1.25rem;position:relative;border-radius:6px;overflow:hidden;background:var(--azul);box-shadow:0 10px 24px rgba(11,31,58,.18)}
+  .foto img{width:100%;height:auto;transition:transform .6s ease}
+  .foto:hover img{transform:scale(1.07)}
+  .foto figcaption{position:absolute;inset:auto 0 0 0;padding:2.5rem 1rem .9rem;background:linear-gradient(transparent,rgba(11,31,58,.9));color:var(--blanco);font-family:var(--mano);font-size:1.45rem;line-height:1.15}
+
+  /* Redes */
+  .redes{background:var(--azul);color:var(--blanco);text-align:center}
+  .redes .sub{margin-inline:auto;color:#cfe0f2}
+  .enlaces{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center}
+
+  footer{background:#071529;color:#9db6d3;padding:1.75rem 0 2.25rem;font-size:.95rem}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:.5rem 2rem;justify-content:space-between}
+  footer p{margin:0;max-width:60ch}
+
+  /* Aparecer al hacer scroll (solo si hay JS) */
+  .js .ap{opacity:0;transform:translateY(34px) scale(.98);transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.3,1);transition-delay:var(--d,0ms)}
+  .js .ap.visto{opacity:1;transform:none}
+
+  @media (max-width: 860px){
+    .nav ul{gap:1rem}
+    .nav li:nth-child(n+3){display:none}
+    .portada{padding-top:6.5rem}
+    .portada .wrap,.quien .wrap,.vista .wrap,.expresiones .escenario{grid-template-columns:1fr;gap:2.5rem}
+    .escena{max-width:340px}
+    .pegatina.sol{right:-14px}
+    .pegatina.diez{left:-12px}
+    section.bloque{padding:4.5rem 0}
+    .galeria{columns:2}
+    .foto-quien img{margin-inline:auto}
+    .retrato{margin-inline:auto}
+    .globo-dice{text-align:center;margin-inline:auto}
+    .chips{justify-content:center}
+  }
+  @media (max-width: 520px){
+    .galeria{columns:1}
+    .boton{width:100%}
+    .pista span{font-size:1.25rem}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none !important;transition:none !important}
+    .js .ap{opacity:1;transform:none}
+    .cinta{overflow-x:auto}
+  }
+</style>
+</head>
+<body>
+<div class="avance" aria-hidden="true"><i id="avance"></i></div>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#inicio">Messi<b>En</b>ToBien</a>
+    <nav aria-label="Principal">
+      <ul>
+        <li><a class="l" href="#quien">Quién es</a></li>
+        <li><a class="l" href="#expresiones">Expresiones</a></li>
+        <li><a class="l" href="#vista">360°</a></li>
+        <li><a class="l" href="#dia">Su día</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="portada">
+    <svg class="sol-fondo" id="solFondo" viewBox="0 0 200 200" aria-hidden="true">
+      <g fill="#F6B40E">
+        <circle cx="100" cy="100" r="40"/>
+        <g id="rayos"></g>
+      </g>
+    </svg>
+    <div class="wrap">
+      <div>
+        <h1 aria-label="MessiEn ToBien">
+          <span class="linea" data-split aria-hidden="true">MessiEn</span>
+          <span class="linea dos" data-split aria-hidden="true">ToBien</span>
+        </h1>
+        <span class="lema">¡Me siento lindo!</span>
+        <p class="intro">Argentino de alma y con toda la actitud. Mate en la mano, asado en el fuego y la mejor onda.</p>
+        <div class="acciones">
+          <a class="boton" href="#lindo">Sentite lindo vos también</a>
+          <a class="boton claro" href="#dia">Mirá su día</a>
+        </div>
+      </div>
+      <div class="escena" id="escena">
+        <div class="tarjeta" id="tarjeta">
+          <img src="img/hero.jpg" alt="MessiEn ToBien sentado con un mate en la mano, camiseta celeste y blanca y el cartel Me siento lindo" width="592" height="720">
+          <svg class="pegatina sol" viewBox="0 0 200 200" aria-hidden="true"><g fill="#F6B40E"><circle cx="100" cy="100" r="42"/><g id="rayos2"></g></g></svg>
+          <div class="pegatina diez" aria-hidden="true">10</div>
+          <div class="pegatina globo" aria-hidden="true">mate listo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cinta" aria-hidden="true">
+    <div class="pista" id="pista"></div>
+  </div>
+
+  <section class="bloque quien" id="quien">
+    <div class="wrap">
+      <div class="foto-quien ap">
+        <img src="img/selfie-cara.jpg" alt="Selfie de MessiEn ToBien con bigote y sonrisa de costado" loading="lazy">
+      </div>
+      <div>
+        <h2 class="ap">Se siente lindo y lo comparte</h2>
+        <p class="ap" style="--d:80ms">MessiEn ToBien es un influencer virtual con una sola misión: sentirse lindo todos los días y contagiarlo. Con la camiseta puesta, el mate en la mano y el asado en el fuego, no hay lunes que le gane.</p>
+        <p class="ap" style="--d:160ms">Acá vas a ver su día a día, sus gestos de siempre y toda la buena onda que trae. Pasá, mirá y quedate un rato.</p>
+        <span class="firma ap" style="--d:240ms">Argentino de alma y con toda la actitud ♥</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque lindo" id="lindo">
+    <div class="wrap">
+      <h2 class="ap">Medidor de lindura</h2>
+      <p class="sub ap">Tocá el botón cada vez que te sientas lindo. Sin límite.</p>
+      <div class="ap"><span class="contador" id="contador" aria-live="polite">0</span></div>
+      <div class="ap">
+        <button class="gran-boton" id="botonLindo" type="button">¡Me siento lindo!</button>
+      </div>
+      <p class="nota ap">Tu cuenta se guarda solo en tu navegador.</p>
+    </div>
+  </section>
+
+  <section class="bloque expresiones" id="expresiones">
+    <div class="wrap">
+      <h2 class="ap">Sus caras de siempre</h2>
+      <p class="sub ap">Elegí una expresión y mirá qué dice.</p>
+      <div class="escenario ap">
+        <div class="retrato"><img id="retratoImg" src="img/exp-feliz.jpg" alt="MessiEn ToBien feliz" width="262" height="342"></div>
+        <div>
+          <p class="globo-dice" id="globoDice" aria-live="polite">¡Hoy salió todo redondo!</p>
+          <div class="chips" id="chips" role="group" aria-label="Elegir expresión"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque vista" id="vista">
+    <div class="wrap">
+      <div>
+        <h2 class="ap">Mirálo de todos lados</h2>
+        <p class="sub ap">De frente, de lado y de espalda, siempre con el 10 puesto.</p>
+        <div class="vistas ap" id="vistas" role="group" aria-label="Elegir vista">
+          <button type="button" data-v="0" aria-pressed="true">Frente</button>
+          <button type="button" data-v="1" aria-pressed="false">Lado</button>
+          <button type="button" data-v="2" aria-pressed="false">Espalda</button>
+        </div>
+      </div>
+      <div class="giro ap" id="giro">
+        <img class="on" src="img/v-frente.jpg" alt="MessiEn ToBien de frente, camiseta celeste y blanca número 10" loading="lazy">
+        <img src="img/v-lado.jpg" alt="MessiEn ToBien de perfil" loading="lazy">
+        <img src="img/v-espalda.jpg" alt="MessiEn ToBien de espalda, camiseta con el cartel Me siento lindo y el número 10" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque" id="dia">
+    <div class="wrap">
+      <h2 class="ap">Un día con MessiEn</h2>
+      <p class="sub ap">Mate, asado, moto, perro y gimnasio. Así pasa sus horas.</p>
+      <div class="galeria" id="galeria"></div>
+    </div>
+  </section>
+
+  <section class="bloque redes" id="redes">
+    <div class="wrap">
+      <h2 class="ap">Seguilo</h2>
+      <p class="sub" id="redesTexto">Muy pronto vas a encontrar acá sus redes.</p>
+      <div class="enlaces" id="enlaces"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="anio">2026</span> MessiEn ToBien</p>
+    <p>MessiEn ToBien es un personaje ficticio creado con inteligencia artificial, con fines de humor. No es una persona real y no tiene relación con ninguna persona, club ni federación.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ====== CONFIGURACIÓN: pegá acá los links de sus redes (dejá "" lo que no uses) ====== */
+  var REDES = {
+    "Instagram": "",
+    "TikTok": "",
+    "YouTube": "",
+    "X": ""
+  };
+
+  var EXPRESIONES = [
+    {id:"feliz", nombre:"Feliz", frase:"¡Hoy salió todo redondo!"},
+    {id:"picaro", nombre:"Pícaro", frase:"Yo sé algo que vos no."},
+    {id:"sorprendido", nombre:"Sorprendido", frase:"¿¡Qué!? ¿Ya es domingo?"},
+    {id:"pensativo", nombre:"Pensativo", frase:"A ver... ¿mate o café?"},
+    {id:"serio", nombre:"Serio", frase:"Esto va en serio: el asado no se apura."},
+    {id:"orgulloso", nombre:"Orgulloso", frase:"Argentino de alma."}
+  ];
+
+  var DIA = [
+    {img:"mate", alt:"MessiEn con lentes de sol tomando mate", cap:"Primero el mate. Después, todo lo demás."},
+    {img:"asado", alt:"MessiEn con delantal Me siento lindo cocinando en la parrilla", cap:"Domingo de asado, delantal puesto."},
+    {img:"perro", alt:"MessiEn agachado acariciando a un perro", cap:"El que mejor lo entiende."},
+    {img:"brazos", alt:"MessiEn relajado con los brazos detrás de la cabeza", cap:"Relax total."},
+    {img:"moto", alt:"MessiEn en moto con casco al atardecer", cap:"Casco puesto, atardecer a favor."},
+    {img:"celu", alt:"MessiEn sacándose una selfie con el celular", cap:"Una selfi y seguimos."},
+    {img:"birra", alt:"MessiEn tomando una cerveza", cap:"Una fría para el segundo tiempo."},
+    {img:"piernas", alt:"Piernas de MessiEn sentado junto a unas pesas", cap:"Nunca se saltea el día de piernas."}
+  ];
+
+  var FRASES_CINTA = ["Me siento lindo","Argentino de alma","Mate listo","Domingo de asado","Toda la actitud","Con el 10 puesto"];
+
+  /* Soles (rayos) */
+  function rayos(id){
+    var g=document.getElementById(id),s='';
+    for(var i=0;i<12;i++){s+='<rect x="95" y="6" width="10" height="34" rx="5" transform="rotate('+(i*30)+' 100 100)"/>';}
+    g.innerHTML=s;
+  }
+  rayos('rayos'); rayos('rayos2');
+
+  /* Titular letra por letra */
+  var n=0;
+  document.querySelectorAll('[data-split]').forEach(function(el){
+    var t=el.textContent; el.textContent='';
+    t.split('').forEach(function(ch){
+      var s=document.createElement('span'); s.className='letra'; s.textContent=ch; s.style.setProperty('--i',n++); el.appendChild(s);
+    });
+  });
+
+  /* Cinta */
+  var pista=document.getElementById('pista'),html='';
+  for(var r=0;r<2;r++){FRASES_CINTA.concat(FRASES_CINTA).forEach(function(f){html+='<span>'+f+'</span>';});}
+  pista.innerHTML=html;
+
+  /* Aparecer al scrollear */
+  var aps=document.querySelectorAll('.ap');
+  if('IntersectionObserver' in window && !reduce){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visto');io.unobserve(e.target);}});},{threshold:.15});
+    aps.forEach(function(a){io.observe(a);});
+  } else { aps.forEach(function(a){a.classList.add('visto');}); }
+
+  /* Barra de avance + sol que se mueve */
+  var barra=document.getElementById('avance'),sol=document.getElementById('solFondo'),tick=false;
+  function onScroll(){
+    var h=document.documentElement.scrollHeight-innerHeight;
+    barra.style.width=(h>0?scrollY/h*100:0)+'%';
+    if(!reduce && sol){sol.style.transform='translateY('+(scrollY*.18)+'px) rotate('+(scrollY*.12)+'deg)';}
+    tick=false;
+  }
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onScroll);}},{passive:true});
+  onScroll();
+
+  /* Inclinación 3D de la tarjeta */
+  var esc=document.getElementById('escena'),tar=document.getElementById('tarjeta');
+  if(!reduce){
+    esc.addEventListener('pointermove',function(e){
+      var b=esc.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;
+      tar.style.setProperty('--ry',(x*14)+'deg'); tar.style.setProperty('--rx',(-y*14)+'deg');
+    });
+    esc.addEventListener('pointerleave',function(){tar.style.setProperty('--rx','0deg');tar.style.setProperty('--ry','0deg');});
+  }
+
+  /* Medidor de lindura */
+  var cont=document.getElementById('contador'),btn=document.getElementById('botonLindo'),cuenta=0;
+  try{cuenta=parseInt(localStorage.getItem('mtb-lindura'),10)||0;}catch(e){}
+  cont.textContent=cuenta;
+  btn.addEventListener('click',function(){
+    cuenta++; cont.textContent=cuenta;
+    try{localStorage.setItem('mtb-lindura',cuenta);}catch(e){}
+    if(reduce) return;
+    cont.classList.remove('pop'); void cont.offsetWidth; cont.classList.add('pop');
+    for(var i=0;i<16;i++){
+      var p=document.createElement('span'),a=Math.random()*Math.PI*2,d=90+Math.random()*110;
+      p.className='rayo'; p.style.setProperty('--dx',Math.cos(a)*d+'px'); p.style.setProperty('--dy',Math.sin(a)*d+'px');
+      btn.appendChild(p); setTimeout(function(el){return function(){el.remove();};}(p),850);
+    }
+  });
+
+  /* Expresiones */
+  var chips=document.getElementById('chips'),img=document.getElementById('retratoImg'),dice=document.getElementById('globoDice');
+  EXPRESIONES.forEach(function(x,i){
+    var b=document.createElement('button'); b.type='button'; b.className='chip'; b.setAttribute('aria-pressed',i===0?'true':'false');
+    b.innerHTML='<img src="img/exp-'+x.id+'.jpg" alt=""><span>'+x.nombre+'</span>';
+    b.addEventListener('click',function(){
+      chips.querySelectorAll('.chip').forEach(function(c){c.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true');
+      img.src='img/exp-'+x.id+'.jpg'; img.alt='MessiEn ToBien '+x.nombre.toLowerCase();
+      img.classList.remove('cambia'); void img.offsetWidth; img.classList.add('cambia');
+      dice.textContent=x.frase;
+    });
+    chips.appendChild(b);
+  });
+
+  /* Vista 360 */
+  var fotos=document.querySelectorAll('#giro img'),bots=document.querySelectorAll('#vistas button'),actual=0,auto=null,vista=document.getElementById('vista');
+  function ver(i){
+    actual=i;
+    fotos.forEach(function(f,k){f.classList.toggle('on',k===i);});
+    bots.forEach(function(b,k){b.setAttribute('aria-pressed',k===i?'true':'false');});
+  }
+  bots.forEach(function(b,k){b.addEventListener('click',function(){clearInterval(auto);auto=null;ver(k);});});
+  if(!reduce && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting && auto===null && !vista.dataset.manual){auto=setInterval(function(){ver((actual+1)%3);},1800);}
+        else if(!e.isIntersecting && auto){clearInterval(auto);auto=null;}
+      });
+    },{threshold:.4}).observe(vista);
+    bots.forEach(function(b){b.addEventListener('click',function(){vista.dataset.manual='1';});});
+  }
+
+  /* Galería */
+  var gal=document.getElementById('galeria');
+  DIA.forEach(function(d,i){
+    var f=document.createElement('figure'); f.className='foto ap'; f.style.setProperty('--d',(i%3)*90+'ms');
+    f.innerHTML='<img src="img/'+d.img+'.jpg" alt="'+d.alt+'" loading="lazy"><figcaption>'+d.cap+'</figcaption>';
+    gal.appendChild(f);
+    if('IntersectionObserver' in window && !reduce){
+      new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){f.classList.add('visto');o.disconnect();}});},{threshold:.1}).observe(f);
+    } else {f.classList.add('visto');}
+  });
+
+  /* Redes */
+  var en=document.getElementById('enlaces'),hay=false;
+  Object.keys(REDES).forEach(function(k){
+    if(REDES[k]){hay=true;var a=document.createElement('a');a.className='boton';a.href=REDES[k];a.target='_blank';a.rel='noopener';a.textContent=k;en.appendChild(a);}
+  });
+  if(hay){document.getElementById('redesTexto').textContent='Sumate y no te pierdas nada.';}
+
+  document.getElementById('anio').textContent=new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
